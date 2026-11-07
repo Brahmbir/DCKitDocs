@@ -4,7 +4,8 @@ on:
   push:
     branches: [main]
     paths:
-      - "_docs/**" # your docs folder
+      - "**"
+      - "!.gitignore"
       - ".github/workflows/deploy-docs.yml"
   workflow_dispatch:
 
@@ -20,31 +21,35 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: _docs
+
     steps:
       - uses: actions/checkout@v4
+
       - uses: pnpm/action-setup@v4
         with:
-          version: 9 # or use the "packageManager" field in package.json
+          version: 9
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: pnpm
-          cache-dependency-path: _docs/pnpm-lock.yaml
+          cache-dependency-path: pnpm-lock.yaml
+
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
+
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: _docs/out
+          path: out
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
+
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
