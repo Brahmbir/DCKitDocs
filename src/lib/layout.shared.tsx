@@ -20,7 +20,7 @@ export function baseOptions(): BaseLayoutProps {
         on: "nav",
         active: "nested-url",
       },
-      { text: "ABOUT", url: "/about", on: "nav" },
+      { text: "ABOUT", url: "/about", on: "all" },
     ],
     githubUrl: `https://github.com/${gitConfig.user}/${gitConfig.repo}`,
   };
