@@ -97,7 +97,7 @@ export default function NotFound() {
           </Link>
 
           <Link
-            href="/docs"
+            href={docsBasePath}
             className="px-5 py-2.5 rounded-lg text-xs font-mono font-bold tracking-wider bg-fd-secondary hover:bg-fd-muted text-fd-secondary-foreground border border-fd-border transition-colors inline-flex items-center gap-2"
           >
             <BookOpen className="w-4 h-4 text-fd-primary" />
